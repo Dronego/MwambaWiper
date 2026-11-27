@@ -30,9 +30,12 @@ flowchart LR
 - Fixer le servo au plus près de la fenêtre optique, avec son axe parallèle à la surface à balayer.
 - Le bras doit couvrir la zone active sans heurter le bord du hublot ni toucher le diffuseur/capteur.
 - Prévoir une position de repos hors de la zone optiquement utile si la géométrie le permet.
-- Employer une lèvre remplaçable, souple et compatible avec le matériau du hublot ; ne pas définir la matière avant essai d’abrasion et de nettoyage.
+- Employer une lèvre/brosse remplaçable, compatible avec le matériau du hublot ; comparer douceur, efficacité et usure, puis inspecter le hublot après des cycles répétés.
+- Garder le mécanisme démontable pour remplacer la pièce d’usure sans remplacer le servo.
+- Laisser des jeux et chemins d’évacuation qui tolèrent les particules et dépôts ; le macrofouling peut bloquer un essuie-glace.
 - Limiter mécaniquement la course pour que le servo ne force jamais sur une butée. La consigne PWM ne doit pas servir de butée mécanique.
 - Ajouter une protection contre le desserrage du bras et l’accrochage par câble ou débris.
+- Le servo trois fils ne confirme pas son déplacement ; un suivi du courant ou un retour de position peut être étudié si les essais révèlent des blocages, sans le présenter comme une fonction du premier prototype.
 
 ## Vue de face indicative
 
@@ -73,6 +76,10 @@ L’inox 316 du connecteur et l’aluminium du caisson forment un assemblage de 
 ## Implantation batterie et énergie
 
 Le pack 3S envisagé (3 000 ou 5 000 mAh) doit être vérifié physiquement avec le diamètre intérieur réel du tube et le DG-Core. Réserver un chemin de câbles et un accès au connecteur d’équilibrage/charge conformément au mode d’usage retenu. Ne pas placer le pack contre le convertisseur servo s’il chauffe en fonctionnement.
+
+## Référence de conception
+
+La [revue des stratégies anti-biofouling](../docs/REVUE_ANTIFOULING.md) justifie ces choix de conception : protéger l’optique contre l’abrasion, faciliter le remplacement de la pièce d’usure, éviter le blocage par particules, et limiter les risques d’étanchéité/corrosion aux interfaces immergées.
 
 ## Cotes à relever pour passer en CAO
 
