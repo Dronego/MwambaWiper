@@ -51,6 +51,7 @@ Au premier démarrage, le point d’accès Wi‑Fi crée un SSID et un mot de pa
 - [Schéma mécanique conceptuel](mechanical/SCHEMA_CONCEPTUEL.md)
 - [Nomenclature initiale (BOM)](BOM.md)
 - [Budget énergétique et mesure d’autonomie](docs/BUDGET_ENERGETIQUE.md)
+- [Revue anti-biofouling et implications de conception](docs/REVUE_ANTIFOULING.md)
 - [Firmware](firmware/src/main.cpp)
 - [Interface web](firmware/data/index.html)
 
