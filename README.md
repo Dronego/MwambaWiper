@@ -18,7 +18,8 @@ MwambaWiper pilote un servomoteur submersible ROVMAKER afin de balayer la fenêt
 - **Batterie :** pack 3S de 3 000 ou 5 000 mAh. Avec 11,1 V nominaux, cela représente respectivement environ 33,3 Wh et 55,5 Wh nominaux. Le servo demande une alimentation régulée dans sa plage : prévoir un convertisseur buck-boost 12 V si ces caractéristiques sont confirmées.
 - **Traversée :** Cobalt bulkhead 3 broches, M10 × 1,5, monté sur une surface plane/lisse du bouchon du caisson.
 - **Câble :** connecteur Cobalt associé et terminaison compatible avec le câble réel du servo.
-- **Contrôleur :** carte ESP32 (modèle à confirmer), servo commandé en PWM.
+- **Contrôleur :** carte ESP32 (modèle à confirmer) sur PCB 2 pouces ; le régulateur 5 V du grand PCB circulaire est repris pour alimenter la logique.
+- **Puissance servo :** branche séparée depuis le pack 3S vers un buck-boost 12 V régulé, si la plage de 12–28 V du modèle 15 kg est confirmée.
 - **Temps :** RTC DS3231 par défaut dans le firmware ; possibilité de basculer vers PCF8523.
 - **Journal :** mémoire flash LittleFS pour le prototype.
 - **Boîtier :** tube aluminium 2 pouces, longueur 150 mm, avec LED et interrupteur existants. Géométrie et interfaces à relever avant plan coté.
