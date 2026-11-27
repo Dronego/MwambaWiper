@@ -2,7 +2,7 @@
 
 **Essuie-glace sous-marin autonome pour surfaces optiques** — projet Mwamba Électronique.
 
-MwambaWiper pilote un servomoteur submersible ROVMAKER afin de balayer la fenêtre optique d’un capteur et d’y limiter les dépôts. Le premier prototype est autonome : batterie, ESP32 et RTC dans un caisson aluminium de 2 pouces et 150 mm, avec commande du servo via une traversée Cobalt et un câble dédié.
+MwambaWiper pilote un servomoteur submersible ROVMAKER afin de balayer la fenêtre optique d’un capteur et d’y limiter les dépôts. Le premier prototype est autonome : pack batterie 3S de 3 000 ou 5 000 mAh, ESP32 et RTC dans un caisson aluminium de 2 pouces et 150 mm, avec commande du servo via une traversée Cobalt et un câble dédié.
 
 ## Fonctions prévues
 
@@ -14,7 +14,8 @@ MwambaWiper pilote un servomoteur submersible ROVMAKER afin de balayer la fenêt
 
 ## Architecture prototype
 
-- **Actionneur :** le servo reçu pèse 213 g ; il s’agit probablement du modèle immergeable ROVMAKER 15 kg·cm. Référence exacte à confirmer. La documentation ROVMAKER du servo 15 kg indique 12–28 V, PWM 50 Hz et 0,2–0,6 A ; confirmer ces limites pour l’exemplaire reçu et sous charge.
+- **Actionneur :** le servo reçu pèse 213 g ; il s’agit probablement du modèle immergeable ROVMAKER 15 kg·cm. Référence exacte à confirmer. Le fabricant indique pour le modèle 15 kg une alimentation de 12–28 V et une commande PWM à 50 Hz ; le courant indiqué est 0,2–0,6 A, à vérifier sous charge.
+- **Batterie :** pack 3S de 3 000 ou 5 000 mAh. Avec 11,1 V nominaux, cela représente respectivement environ 33,3 Wh et 55,5 Wh nominaux. Le servo demande une alimentation régulée dans sa plage : prévoir un convertisseur buck-boost 12 V si ces caractéristiques sont confirmées.
 - **Traversée :** Cobalt bulkhead 3 broches, M10 × 1,5, monté sur une surface plane/lisse du bouchon du caisson.
 - **Câble :** connecteur Cobalt associé et terminaison compatible avec le câble réel du servo.
 - **Contrôleur :** carte ESP32 (modèle à confirmer), servo commandé en PWM.
@@ -48,6 +49,7 @@ Au premier démarrage, le point d’accès Wi‑Fi crée un SSID et un mot de pa
 - [Séquences de fonctionnement et de mesure](docs/SEQUENCES_MESURE.md)
 - [Schéma mécanique conceptuel](mechanical/SCHEMA_CONCEPTUEL.md)
 - [Nomenclature initiale (BOM)](BOM.md)
+- [Budget énergétique et mesure d’autonomie](docs/BUDGET_ENERGETIQUE.md)
 - [Firmware](firmware/src/main.cpp)
 - [Interface web](firmware/data/index.html)
 
@@ -60,4 +62,4 @@ Au premier démarrage, le point d’accès Wi‑Fi crée un SSID et un mot de pa
 
 ## État
 
-Prototype fonctionnel en préparation. Les choix de séquence et le firmware sont une première base ; le modèle exact de servo, la carte ESP32, les cotes de la tête optique, le raccordement du commutateur/LED et la capacité batterie restent à confirmer.
+Prototype fonctionnel en préparation. Les choix de séquence et le firmware sont une première base ; le modèle exact de servo, la carte ESP32, les cotes de la tête optique, le raccordement du commutateur/LED et la capacité batterie, le convertisseur 12 V et l’autonomie restent à confirmer.
