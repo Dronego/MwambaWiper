@@ -150,7 +150,11 @@ bool startCycle(const String &source) {
     wiper.setPeriodHertz(50);
     servoAttached = wiper.attach(SERVO_PIN, 500, 2500);
   }
-  if (!servoAttached) return false;
+  if (!servoAttached) {
+    appendLog("CYCLE_ABORT", -1, cfg.pulseAUs,
+              "SERVO_ATTACH_FAILED_" + source);
+    return false;
+  }
 
   cycleSource = source;
   strokesDone = 0;
