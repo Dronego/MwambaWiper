@@ -46,7 +46,9 @@ struct Config {
   uint16_t parkUs = DEFAULT_PARK_US;
 };
 
-enum class Stage : uint8_t { IDLE, POSITION, SWEEP, GAP, PARK };
+enum class Stage : uint8_t {
+  IDLE, POSITION, SWEEP, GAP, PARK, TEST_POSITION, TEST_OUT, TEST_RETURN
+};
 Config cfg;
 Preferences prefs;
 WebServer server(80);
@@ -67,6 +69,9 @@ const char *stageName(Stage value) {
     case Stage::SWEEP: return "SWEEP";
     case Stage::GAP: return "GAP";
     case Stage::PARK: return "PARK";
+    case Stage::TEST_POSITION: return "TEST_POSITION";
+    case Stage::TEST_OUT: return "TEST_OUT";
+    case Stage::TEST_RETURN: return "TEST_RETURN";
     default: return "IDLE";
   }
 }
@@ -167,6 +172,27 @@ bool startCycle(const String &source) {
   return true;
 }
 
+bool startTest() {
+  if (stage != Stage::IDLE) return false;
+  if (!servoAttached) {
+    wiper.setPeriodHertz(50);
+    servoAttached = wiper.attach(SERVO_PIN, 500, 2500);
+  }
+  if (!servoAttached) {
+    appendLog("TEST_ABORT", -1, cfg.pulseAUs, "SERVO_ATTACH_FAILED");
+    return false;
+  }
+
+  cycleSource = "TEST";
+  strokesDone = 0;
+  commandServo(cfg.pulseAUs);
+  stage = Stage::TEST_POSITION;
+  stageDueMs = millis() + cfg.travelMs;
+  appendLog("TEST_START", -1, cfg.pulseAUs,
+            "START_US=" + String(cfg.pulseAUs) + ";END_US=" + String(cfg.pulseBUs));
+  return true;
+}
+
 void finishCycle() {
   appendLog("CYCLE_END", strokesDone, cfg.parkUs,
             cycleSource + "_COMMANDS_SENT_NO_POSITION_FEEDBACK");
@@ -211,6 +237,29 @@ void serviceCycle() {
 
   if (stage == Stage::PARK) {
     finishCycle();
+    return;
+  }
+
+  if (stage == Stage::TEST_POSITION) {
+    commandServo(cfg.pulseBUs);
+    stage = Stage::TEST_OUT;
+    stageDueMs = millis() + cfg.travelMs;
+    appendLog("TEST_END_CMD", 1, cfg.pulseBUs, "TEST");
+    return;
+  }
+
+  if (stage == Stage::TEST_OUT) {
+    commandServo(cfg.pulseAUs);
+    stage = Stage::TEST_RETURN;
+    stageDueMs = millis() + cfg.travelMs;
+    appendLog("TEST_RETURN_CMD", 1, cfg.pulseAUs, "TEST");
+    return;
+  }
+
+  if (stage == Stage::TEST_RETURN) {
+    appendLog("TEST_END", 1, cfg.pulseAUs,
+              "COMMANDS_SENT_NO_POSITION_FEEDBACK");
+    stage = Stage::IDLE;
   }
 }
 
@@ -330,6 +379,15 @@ void setupRoutes() {
       return;
     }
     bool started = startCycle("MANUAL");
+    server.send(started ? 200 : 500, "application/json",
+                started ? "{\"ok\":true}" : "{\"ok\":false,\"error\":\"servo_attach_failed\"}");
+  });
+  server.on("/api/test", HTTP_POST, []() {
+    if (stage != Stage::IDLE) {
+      server.send(409, "application/json", "{\"ok\":false,\"error\":\"cycle_active\"}");
+      return;
+    }
+    bool started = startTest();
     server.send(started ? 200 : 500, "application/json",
                 started ? "{\"ok\":true}" : "{\"ok\":false,\"error\":\"servo_attach_failed\"}");
   });
