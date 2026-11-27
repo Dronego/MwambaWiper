@@ -25,15 +25,15 @@ main{max-width:960px;margin:auto;padding:24px 16px 48px}.top{display:flex;align-
 <div class="grid">
 <section class="card wide"><h2>État du système</h2><div class="status">
 <span class="pill" id="now">RTC : …</span><span class="pill" id="stage">État : …</span><span class="pill" id="progress">Passages : …</span><span class="pill" id="next">Prochaine échéance : …</span><span class="pill" id="fs">Journal : …</span>
-</div><p class="hint">La fin d’un cycle confirme l’envoi des commandes, pas le mouvement mécanique du servo.</p><div class="actions"><button id="run" onclick="runCycle()">Lancer un essuyage</button><a class="button secondary" href="/events.csv">Télécharger le journal CSV</a></div><div class="notice" id="msg"></div></section>
+</div><p class="hint">La fin d’un cycle confirme l’envoi des commandes, pas le mouvement mécanique du servo.</p><div class="actions"><button id="test" class="secondary" onclick="runTest()">Tester un aller-retour</button><button id="run" onclick="runCycle()">Lancer un essuyage</button><a class="button secondary" href="/events.csv">Télécharger le journal CSV</a></div><div class="notice" id="msg"></div></section>
 <section class="card"><h2>Programme d’essuyage</h2>
 <form id="cfg" onsubmit="saveConfig(event)"><div class="fields">
 <div class="field"><label for="interval_min">Intervalle entre cycles (min)</label><input id="interval_min" name="interval_min" type="number" min="1" max="43200" required></div>
 <div class="field"><label for="strokes">Passages par cycle</label><input id="strokes" name="strokes" type="number" min="1" max="20" required></div>
 <div class="field"><label for="gap_ms">Pause entre passages (ms)</label><input id="gap_ms" name="gap_ms" type="number" min="0" max="10000" required></div>
 <div class="field"><label for="travel_ms">Temps de déplacement (ms)</label><input id="travel_ms" name="travel_ms" type="number" min="250" max="5000" required></div>
-<div class="field"><label for="pulse_a_us">Impulsion bord A (µs)</label><input id="pulse_a_us" name="pulse_a_us" type="number" min="900" max="2100" required></div>
-<div class="field"><label for="pulse_b_us">Impulsion bord B (µs)</label><input id="pulse_b_us" name="pulse_b_us" type="number" min="900" max="2100" required></div>
+<div class="field"><label for="pulse_a_us">Début de course (µs)</label><input id="pulse_a_us" name="pulse_a_us" type="number" min="900" max="2100" step="10" required></div>
+<div class="field"><label for="pulse_b_us">Fin de course (µs)</label><input id="pulse_b_us" name="pulse_b_us" type="number" min="900" max="2100" step="10" required></div>
 <div class="field"><label for="park_us">Impulsion repos (µs)</label><input id="park_us" name="park_us" type="number" min="900" max="2100" required></div>
 </div><div class="actions"><button type="submit">Enregistrer les réglages</button></div></form></section>
 <section class="card"><h2>Horloge RTC</h2><p>Régler l’heure locale du boîtier (Mayotte, UTC+3).</p><div class="field"><label for="rtc_value">Date et heure</label><input id="rtc_value" type="datetime-local"></div><div class="actions"><button class="secondary" onclick="setTime()">Mettre à l’heure</button></div><div class="notice" id="timeMsg"></div></section>
@@ -50,6 +50,7 @@ async function refresh(){
   document.getElementById("progress").textContent="Passages : "+s.strokes_done+" / "+s.strokes_target;
   document.getElementById("fs").textContent="Journal : "+(s.fs_ok?"disponible":"indisponible");
   document.getElementById("run").disabled=s.active;
+  document.getElementById("test").disabled=s.active;
   document.getElementById("next").textContent=s.next_due_epoch?"Prochain cycle : "+new Date(s.next_due_epoch*1000).toLocaleString("fr-FR"):"Échéance non programmée";
  }catch(e){document.getElementById("msg").textContent="Connexion au boîtier interrompue";}
 }
@@ -67,6 +68,16 @@ async function saveConfig(e){
 async function runCycle(){
  const r=await fetch("/api/run",{method:"POST"});
  document.getElementById("msg").textContent=r.ok?"Essuyage manuel lancé.": "Cycle en cours ou servo indisponible.";
+ await refresh();
+}
+async function runTest(){
+ const form=document.getElementById("cfg");
+ if(!form.reportValidity())return;
+ const data=new URLSearchParams(new FormData(form));
+ const saved=await fetch("/api/config",{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded"},body:data});
+ if(!saved.ok){document.getElementById("msg").textContent="Réglages invalides ou mouvement déjà en cours.";return;}
+ const r=await fetch("/api/test",{method:"POST"});
+ document.getElementById("msg").textContent=r.ok?"Test lancé : début → fin → début.":"Cycle en cours ou servo indisponible.";
  await refresh();
 }
 async function setTime(){
