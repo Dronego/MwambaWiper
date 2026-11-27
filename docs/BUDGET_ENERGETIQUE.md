@@ -17,6 +17,8 @@ Ces énergies sont théoriques. L’énergie réellement exploitable sera infér
 
 Le régulateur 5 V déjà utilisé sur le grand PCB circulaire sera également intégré au PCB de 2 pouces. Il alimentera la carte ESP32 et la logique/RTC selon leurs exigences électriques. Le courant admissible et l’échauffement du régulateur doivent être vérifiés avec le Wi‑Fi actif et les périphériques réellement montés.
 
+Sur la Feather ESP32-S3 retenue (4 Mo flash / 2 Mo PSRAM), amener le 5 V régulé sur la broche **USB** et relier le 0 V à **GND**. Ne pas appliquer 5 V sur **BAT** ni sur **3V** : BAT est le rail batterie LiPo/chargeur et 3V est la sortie régulée 3,3 V. Éviter d’alimenter cette broche USB depuis le régulateur pendant qu’un câble USB est connecté à un ordinateur, car cela peut renvoyer le 5 V vers le port hôte; couper l’alimentation externe avant la programmation USB, ou prévoir une isolation matérielle appropriée.
+
 ### Servo : rail dédié
 
 La documentation ROVMAKER retrouvée pour le servo 15 kg indique une plage d’alimentation de 12–28 V, un signal PWM 50 Hz et un courant de 0,2–0,6 A. Le servo reçu de 213 g est probablement cette variante, mais la référence exacte et le courant sous charge restent à confirmer.
