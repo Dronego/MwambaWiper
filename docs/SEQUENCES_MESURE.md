@@ -60,7 +60,13 @@ Le firmware crée `/events.csv` dans LittleFS. Les événements comportent :
 
 L’heure est celle programmée dans le RTC (Mayotte, UTC+3 dans la configuration de terrain). La ligne `CYCLE_END` représente une séquence commandée ; elle ne certifie pas le mouvement physique. Les données brutes ne sont pas supprimées par le nettoyage.
 
-## 5. Paramètres à valider au banc
+## 5. Qualification avant et après déploiement
+
+La fenêtre optique doit être inspectée et le capteur caractérisé avant déploiement, puis contrôlé après récupération. Les fichiers bruts restent conservés. Comparer les mesures de référence, les périodes avant/après brossage et l’état de la surface afin de distinguer effet de biofilm, effet du nettoyage et dérive instrumentale. Les cycles doivent être journalisés avec leurs paramètres et leur statut de commande ; l’absence de retour de position doit rester visible dans l’analyse.
+
+Cette démarche suit les limites décrites dans la [revue anti-biofouling](REVUE_ANTIFOULING.md), sans présumer que l’essuyage suffira à prévenir tout dépôt.
+
+## 6. Paramètres à valider au banc
 
 - Définition opérationnelle d’un passage et nombre de passages utile.
 - Position de repos qui ne masque pas le capteur.
