@@ -48,3 +48,33 @@ Ce protocole est une proposition de validation. Le poster ne démontre pas la co
 ## Bibliographie complémentaire du projet
 
 Delgado, A., Briciu-Burghina, C. & Regan, F. (2021). *Antifouling Strategies for Sensors Used in Water Monitoring: Review and Future Perspectives*. **Sensors, 21**(2), 389. [DOI: 10.3390/s21020389](https://doi.org/10.3390/s21020389). Revue des méthodes et compromis anti-encrassement, déjà résumée dans [REVUE_ANTIFOULING.md](REVUE_ANTIFOULING.md).
+
+
+## Complément — panorama PatSnap et DOI 10.3390/s21020389
+
+La page [PatSnap Eureka — Non-Toxic Biofouling Prevention for Marine Sensors](https://eureka.patsnap.com/resources/blog/rd-blog/biofouling-prevention-for-marine-sensors-patsnap-eureka/) reprend la revue de Delgado, Briciu-Burghina & Regan (2021), [*Antifouling Strategies for Sensors Used in Water Monitoring: Review and Future Perspectives*](https://doi.org/10.3390/s21020389). Elle organise les pistes en quatre familles : action mécanique/énergétique (essuie-glace, vibration/ultrasons, jets ou bulles), UV/photoniques, ingénierie de surface (revêtements transparents et films), et architecture (chambre protégée, volet ou surface déformable).
+
+### Ce que la revue et les études primaires ajoutent
+
+| Piste | Principe et niveau de preuve | Pertinence pour MwambaWiper |
+|---|---|---|
+| Essuie-glace / brosse | Méthode déjà intégrée aux sondes de terrain; la revue rappelle l’abrasion, le blocage par le macrofouling, l’usure, le besoin d’énergie et les traversées étanches/corrosion. Ridd & Larcombe (1994) apportent une démonstration directe sur un capteur optique de turbidité. | **Piste la plus directe** pour le prototype actuel. Choisir un matériau de contact doux, remplaçable et compatible avec la fenêtre; vérifier l’abrasion et l’entraînement de grains. |
+| Ultrason / vibration | Salimi et al. (2023) testent des transducteurs haute puissance marinés pour détacher localement le biofouling d’une plaque d’accès d’éolienne. Leur montage, leurs fréquences et niveaux d’énergie concernent une grande structure, pas une petite fenêtre optique. | **Piste exploratoire, non recommandée comme remplacement immédiat** : transducteur, électronique de puissance, transmission mécanique jusqu’à la fenêtre, effets sur l’optique et compatibilité avec les capteurs doivent être étudiés séparément. Ne pas reprendre simplement « 27,5 kHz » comme fréquence de conception. |
+| UV / photonic | Irradiation pour limiter/inactiver des organismes, parfois dans une chambre de mesure fermée. Un brevet décrit une chambre qui mesure un échantillon puis l’irradie avant le cycle suivant; un brevet décrit un concept, pas à lui seul une preuve d’efficacité sur le capteur Mwamba. | Peut être pertinent à une chambre de prélèvement ou de mesure fermée. Sur une tête ouverte, il faut vérifier la géométrie, la dose, l’énergie, le vieillissement des matériaux et l’exposition biologique; ce n’est pas un simple ajout au firmware. |
+| Revêtement transparent | Wilson et al. (2019) testent des revêtements sol-gel ORMOSIL sur des panneaux de verre en baie de Galway (études de micro- et macrofouling jusqu’à 9 et 13 mois). Les résultats dépendent de la formulation et de la surface; les panneaux ne valident pas directement le traitement d’une fenêtre PMMA ou d’un diffuseur PTFE. | Une piste à évaluer sur éprouvettes optiques avant toute application à une fenêtre réelle : transmission spectrale, voile/diffusion, adhésion, abrasion et compatibilité avec PMMA, verre ou diffuseur. |
+| Chambre / volet / barrière physique | Protéger la surface lorsque la mesure ne se fait pas, ou prélever dans une chambre contrôlée. Cela limite l’exposition mais modifie le chemin optique ou la représentativité de l’échantillon si la conception n’est pas adaptée. | Idée envisageable si MwambaSpecDT peut mesurer par séquences avec une fenêtre protégée entre les mesures. Pour une mesure PAR ambiante continue, un volet masquerait précisément le signal recherché. |
+
+### Qualité et limites de la page PatSnap
+
+PatSnap est utile ici comme **carte de veille** et taxonomie des familles de solutions, pas comme source primaire d’efficacité. Son article juxtapose brevets, publications, données de paysage et recommandations stratégiques; le corpus annoncé (50+ documents) et ses décomptes ne remplacent pas une revue systématique reproductible. Les brevets décrivent des revendications et réalisations potentielles : ils ne démontrent pas à eux seuls une performance en déploiement.
+
+La page affiche deux dates de publication différentes (10 juillet 2025 dans les métadonnées et 6 mai 2026 dans le corps), alors qu’elle annonce aussi une couverture allant jusqu’en 2026. Il faut donc éviter d’en déduire une chronologie précise sans consulter les publications et les familles de brevets sous-jacentes.
+
+### Sources primaires ajoutées
+
+- Delgado, A., Briciu-Burghina, C. & Regan, F. (2021). *Sensors*, 21(2), 389. [DOI: 10.3390/s21020389](https://doi.org/10.3390/s21020389). Revue de référence : critères et compromis des méthodes mécaniques, UV, matériaux et protections architecturales.
+- Salimi, M. et al. (2023). “Biofouling Removal Using a Novel Electronic System for Driving an Array of High Power Marinised Transducers”, *Applied Sciences*, 13(6), 3749. [DOI: 10.3390/app13063749](https://doi.org/10.3390/app13063749). Démonstrateur ultrasonore sur plaque/structure marine, pas sur capteur optique compact.
+- Wilson, L. et al. (2019). “Assessment of Antifouling Potential of Novel Transparent Sol Gel Coatings for Application in the Marine Environment”, *Molecules*, 24(16), 2983. [DOI: 10.3390/molecules24162983](https://doi.org/10.3390/molecules24162983). Essais de panneaux de verre revêtus, pas validation sur fenêtre de capteur.
+- De la revue vers une autre étude de terrain : Delauney et al. (2023), “Design and In Situ Validation of Low-Cost and Easy to Apply Anti-Biofouling Techniques for Oceanographic Continuous Monitoring with Optical Instruments”, *Sensors*, 23(2), 605. [DOI: 10.3390/s23020605](https://doi.org/10.3390/s23020605). Comparaison de six protections sur capteur optique de turbidité en mer; les auteurs insistent sur le fait que le nettoyage agressif peut modifier l’état de la zone sensible et compliquer la comparaison métrologique avant/après déploiement.
+
+**Décision de conception provisoire :** garder le servo et la brosse comme solution de prototype, puisque c’est l’approche la plus directement testable avec l’architecture actuelle. Utiliser la revue pour bâtir la grille d’essai (abrasion, blocage, étanchéité, corrosion, énergie, stabilité optique), et traiter ultrason, UV, revêtements et volets comme des pistes distinctes, chacune avec ses propres essais de compatibilité.
