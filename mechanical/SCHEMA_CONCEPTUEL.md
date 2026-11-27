@@ -53,16 +53,16 @@ flowchart LR
 ```mermaid
 flowchart LR
     BAT["Batterie protégée"] --> F["Protection branche servo"]
-    F --> DC["Convertisseur servo régulé"]
+    F --> DC["Buck-boost dédié 12 V servo"]
     DC --> CB["Cobalt : +V servo"]
-    BAT --> DCL["Régulateur logique"]
+    BAT --> DCL["Régulateur 5 V du grand PCB, repris sur PCB 2 pouces"]
     DCL --> MCU["ESP32 + RTC"]
     MCU -->|PWM| CB
     DCL -->|0 V commun| CB
     CB --> SERVO["Servo immergé"]
 ```
 
-Pour le modèle 15 kg suspecté, ROVMAKER indique 12–28 V, 50 Hz PWM et 0,2–0,6 A ; confirmer ces valeurs pour la référence exacte et mesurer le courant sous charge. Un pack 3S fait 11,1 V nominaux et 12,6 V lorsqu’il est chargé : il faut un buck-boost 12 V régulé si la plage minimale de 12 V est confirmée. Le servo ne doit pas être alimenté depuis la sortie 3,3 V ou 5 V de la carte ESP32. Le retour de masse logique et servo doit être commun pour référencer le PWM ; la distribution de puissance reste séparée et protégée.
+Pour le modèle 15 kg suspecté, ROVMAKER indique 12–28 V, 50 Hz PWM et 0,2–0,6 A ; confirmer ces valeurs pour la référence exacte et mesurer le courant sous charge. Un pack 3S fait 11,1 V nominaux et 12,6 V lorsqu’il est chargé : il faut un buck-boost 12 V régulé si la plage minimale de 12 V est confirmée. Le régulateur 5 V repris du grand PCB alimente la logique. Le servo ne doit pas être alimenté depuis cette sortie 5 V. Le retour de masse logique et servo doit être commun pour référencer le PWM ; la distribution de puissance reste séparée et protégée.
 
 ## Interface Cobalt / caisson
 
