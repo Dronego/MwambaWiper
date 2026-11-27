@@ -4,7 +4,7 @@ BOM de prototype. Les références sans quantité ou sans spécification finale 
 
 | Qté | Sous-ensemble | Élément / spécification de départ | Statut / remarque |
 |---:|---|---|---|
-| 1 | Actionneur | Servo numérique immergeable ROVMAKER | Référence exacte à confirmer ; vérifier tension, course, brochage et disponibilité avant conception du driver |
+| 1 | Actionneur | Servo numérique immergeable ROVMAKER, probablement modèle 15 kg·cm (masse mesurée/annoncée : 213 g) | Hypothèse d’identification à confirmer par référence ; le fabricant indique pour le 15 kg : 12–28 V, PWM 50 Hz, 0,2–0,6 A. Vérifier la fiche de l’exemplaire et le courant sous charge |
 | 1 | Connectique caisson | Cobalt bulkhead 3 broches, M10 × 1,5, traversée 10 mm | À monter sur une surface plane et lisse ; 3-pin standard ou 3-pin Power à sélectionner |
 | 1 | Connectique câble | Cobalt cable termination kit assorti au bulkhead et au câble servo | Vérifier diamètre/type de gaine, coque régulière/grande, outil de terminaison et résine de potting |
 | 1 | Câble | Câble trois conducteurs : servo +V, 0 V, PWM | Section selon courant, longueur, chute de tension et choix de kit |
@@ -14,7 +14,7 @@ BOM de prototype. Les références sans quantité ou sans spécification finale 
 | 1 | Horloge | RTC DS3231 (firmware par défaut) ou PCF8523 | Choisir le module exact, batterie de sauvegarde et niveau logique I²C |
 | 1 | Stockage journal | LittleFS dans la mémoire flash ESP32 | Pas de carte SD pour le premier prototype |
 | 1 | Batterie | Pack rechargeable protégé, capacité dimensionnée sur l’autonomie cible | Chimie, tension et capacité à définir après mesure du courant et du temps d’usage Wi‑Fi |
-| 1 | Conversion servo | Alimentation régulée adaptée à la tension nominale du servo, marge de courant ≥ courant de pointe | Ne pas alimenter directement le servo depuis la carte ESP32 |
+| 1 | Conversion servo | Alimentation régulée dans la plage confirmée du servo, avec marge sur le courant mesuré sous charge | Valeurs constructeur du modèle 15 kg à confirmer pour l’exemplaire reçu ; ne pas alimenter depuis la carte ESP32 |
 | 1 | Conversion logique | Régulateur adapté à la carte ESP32 / RTC | Dimensionner selon la carte retenue et les pics radio |
 | 1 | Protection | Fusible ou protection électronique sur la branche servo | Valeur à choisir après mesure du courant de blocage/pointe et de la capacité du convertisseur |
 | 1 | Interruption de puissance | Interrupteur existant du caisson | Identifier s’il coupe toute l’alimentation ou commande une entrée logique |
@@ -26,7 +26,7 @@ BOM de prototype. Les références sans quantité ou sans spécification finale 
 
 ## Contrôles avant commande
 
-- Confirmer le modèle servo et sa plage de tension : la page ROVMAKER décrit une famille de servos, la configuration électrique du modèle retenu doit faire foi.
+- Confirmer le modèle servo et sa plage de tension : la page ROVMAKER décrit une famille de servos, le modèle probable est le 15 kg·cm (213 g), mais sa référence et sa fiche électrique doivent être confirmées.
 - Confirmer la charge électrique de chaque broche du Cobalt, la terminaison mâle/femelle, le diamètre du câble et l’outil compatible.
 - Vérifier que le bouchon offre une surface plane et lisse autour du joint torique du bulkhead.
 - Calculer l’autonomie à partir du courant réel au repos, pendant le Wi‑Fi et pendant chaque cycle de brossage.
@@ -36,5 +36,6 @@ BOM de prototype. Les références sans quantité ou sans spécification finale 
 ## Sources
 
 - [Servo numérique sous-marin ROVMAKER](https://rovmaker.org/product/underwater-digital-servo/)
+- [Données ROVMAKER du servo 15 kg : PWM 50 Hz, 12–28 V, 0,2–0,6 A](https://forum.rovmaker.org/t/topic/2017)
 - [Bulkhead Cobalt Blue Trail Engineering](https://www.bluetrailengineering.com/product-page/cobalt-series-bulkhead-connector)
 - [Kit de terminaison Cobalt Blue Trail Engineering](https://www.bluetrailengineering.com/product-page/cable-termination-kit)
