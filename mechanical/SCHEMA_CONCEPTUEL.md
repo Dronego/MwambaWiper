@@ -66,7 +66,7 @@ La tension du servo et le dimensionnement du convertisseur restent à confirmer 
 
 ## Interface Cobalt / caisson
 
-Le bulkhead Cobalt est annoncé avec filetage M10 × 1,5 et montage dans un trou de 10 mm. Le choix recommandé pour le servo est une version 3 broches : alimentation, masse et PWM. La version **3-pin Power** apporte des conducteurs plus gros ; la version standard est déjà dimensionnée au-dessus du courant de pointe indiqué pour la version servo 40 kg. Confirmer la référence et le brochage avant câblage.
+Le bulkhead Cobalt est annoncé avec filetage M10 × 1,5 et montage dans un trou de 10 mm. Le choix recommandé pour le servo est une version 3 broches : alimentation, masse et PWM. Le servo reçu pèse 213 g et semble correspondre au modèle ROVMAKER 15 kg·cm. Le fabricant indique pour ce modèle 12–28 V et 0,2–0,6 A, à confirmer sur la référence exacte et en charge. Une traversée 3 broches standard devrait donc suffire électriquement ; la version **3-pin Power** reste une option si elle simplifie le choix du câble. Confirmer le brochage avant câblage.
 
 L’inox 316 du connecteur et l’aluminium du caisson forment un assemblage de métaux différents en milieu marin. Prévoir une protection anticorrosion et une isolation adaptée sans altérer la portée du joint torique.
 
