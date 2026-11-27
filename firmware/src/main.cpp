@@ -14,10 +14,10 @@
 #include <RTClib.h>
 #include <ESP32Servo.h>
 
-// ---- Board configuration: replace these placeholders for the DG-Core board ----
-static constexpr uint8_t SERVO_PIN = 5;
-static constexpr int I2C_SDA_PIN = 8;
-static constexpr int I2C_SCL_PIN = 9;
+// ---- Adafruit ESP32-S3 Feather (4 MB flash + 2 MB PSRAM) ----
+// A0 is the servo PWM signal output; A1 is left free.
+// The DS3231 FeatherWing uses the Feather's standard SDA/SCL pins.
+static constexpr uint8_t SERVO_PIN = A0;
 // Define MW_USE_PCF8523 in build_flags to use a PCF8523 instead of DS3231.
 #ifdef MW_USE_PCF8523
 RTC_PCF8523 rtc;
@@ -361,7 +361,7 @@ void setup() {
     }
   }
 
-  Wire.begin(I2C_SDA_PIN, I2C_SCL_PIN);
+  Wire.begin();
   rtcReady = rtc.begin();
   if (rtcReady) {
     if (rtc.lostPower()) appendLog("RTC_ERROR", -1, -1, "RTC_LOST_POWER_SET_TIME_IN_WEB_UI");
