@@ -14,7 +14,7 @@ MwambaWiper pilote un servomoteur submersible ROVMAKER afin de balayer la fenêt
 
 ## Architecture prototype
 
-- **Actionneur :** servo numérique sous-marin ROVMAKER (référence exacte et tension à confirmer à réception).
+- **Actionneur :** le servo reçu pèse 213 g ; il s’agit probablement du modèle immergeable ROVMAKER 15 kg·cm. Référence exacte à confirmer. La documentation ROVMAKER du servo 15 kg indique 12–28 V, PWM 50 Hz et 0,2–0,6 A ; confirmer ces limites pour l’exemplaire reçu et sous charge.
 - **Traversée :** Cobalt bulkhead 3 broches, M10 × 1,5, monté sur une surface plane/lisse du bouchon du caisson.
 - **Câble :** connecteur Cobalt associé et terminaison compatible avec le câble réel du servo.
 - **Contrôleur :** carte ESP32 (modèle à confirmer), servo commandé en PWM.
@@ -54,6 +54,7 @@ Au premier démarrage, le point d’accès Wi‑Fi crée un SSID et un mot de pa
 ## Sources matérielles
 
 - [ROVMAKER — Underwater Digital Servo](https://rovmaker.org/product/underwater-digital-servo/)
+- [ROVMAKER — données du servo 15 kg (forum constructeur)](https://forum.rovmaker.org/t/topic/2017)
 - [Blue Trail Engineering — Cobalt Series Bulkhead Connector](https://www.bluetrailengineering.com/product-page/cobalt-series-bulkhead-connector)
 - [Blue Trail Engineering — Cobalt Series Cable Termination Kit](https://www.bluetrailengineering.com/product-page/cable-termination-kit)
 
