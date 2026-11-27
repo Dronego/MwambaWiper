@@ -15,7 +15,7 @@ BOM de prototype. Les références sans quantité ou sans spécification finale 
 | 1 | Stockage journal | LittleFS dans la mémoire flash ESP32 | Pas de carte SD pour le premier prototype |
 | 1 | Batterie | Pack 3S, 3 000 mAh ou 5 000 mAh | 11,1 V nominal ; énergie nominale 33,3 Wh ou 55,5 Wh. Vérifier encombrement dans le tube, courant de décharge admissible, protection/équilibrage et seuil de coupure |
 | 1 | Conversion servo | Alimentation régulée dans la plage confirmée du servo, avec marge sur le courant mesuré sous charge | Valeurs constructeur du modèle 15 kg à confirmer pour l’exemplaire reçu ; ne pas alimenter depuis la carte ESP32 |
-| 1 | Conversion logique | Régulateur adapté à la carte ESP32 / RTC | Dimensionner selon la carte retenue et les pics radio |
+| 1 | Conversion logique | Régulateur 5 V déjà utilisé sur le grand PCB circulaire, repris sur le PCB 2 pouces | Vérifier courant disponible et échauffement avec ESP32/RTC et Wi‑Fi actifs |
 | 1 | Protection | Fusible ou protection électronique sur la branche servo | Valeur à choisir après mesure du courant de blocage/pointe et de la capacité du convertisseur |
 | 1 | Interruption de puissance | Interrupteur existant du caisson | Identifier s’il coupe toute l’alimentation ou commande une entrée logique |
 | 1 | Signalisation | LED existante du caisson | Identifier couleur, résistance/driver et raccordement |
