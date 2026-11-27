@@ -48,6 +48,22 @@ flowchart LR
      └─────────────────────┘
 ```
 
+## Schéma électrique de principe
+
+```mermaid
+flowchart LR
+    BAT["Batterie protégée"] --> F["Protection branche servo"]
+    F --> DC["Convertisseur servo régulé"]
+    DC --> CB["Cobalt : +V servo"]
+    BAT --> DCL["Régulateur logique"]
+    DCL --> MCU["ESP32 + RTC"]
+    MCU -->|PWM| CB
+    DCL -->|0 V commun| CB
+    CB --> SERVO["Servo immergé"]
+```
+
+La tension du servo et le dimensionnement du convertisseur restent à confirmer avec la référence exacte. Le servo ne doit pas être alimenté depuis la sortie 3,3 V ou 5 V de la carte ESP32. Le retour de masse logique et servo doit être commun pour référencer le PWM ; la distribution de puissance reste séparée et protégée.
+
 ## Interface Cobalt / caisson
 
 Le bulkhead Cobalt est annoncé avec filetage M10 × 1,5 et montage dans un trou de 10 mm. Le choix recommandé pour le servo est une version 3 broches : alimentation, masse et PWM. La version **3-pin Power** apporte des conducteurs plus gros ; la version standard est déjà dimensionnée au-dessus du courant de pointe indiqué pour la version servo 40 kg. Confirmer la référence et le brochage avant câblage.
