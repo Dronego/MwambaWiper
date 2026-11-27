@@ -50,15 +50,13 @@ async function refresh(){
   document.getElementById("progress").textContent="Passages : "+s.strokes_done+" / "+s.strokes_target;
   document.getElementById("fs").textContent="Journal : "+(s.fs_ok?"disponible":"indisponible");
   document.getElementById("run").disabled=s.active;
-  document.getElementById("next").textContent=s.next_due_epoch?"Échéance RTC programmée":"Échéance non programmée";
+  document.getElementById("next").textContent=s.next_due_epoch?"Prochain cycle : "+new Date(s.next_due_epoch*1000).toLocaleString("fr-FR"):"Échéance non programmée";
  }catch(e){document.getElementById("msg").textContent="Connexion au boîtier interrompue";}
 }
 async function loadConfig(){
  const r=await fetch("/api/status");const s=await r.json();
- document.getElementById("interval_min").value=s.interval_min;
- // Firmware endpoint returns primary scheduler values; remaining editable defaults are loaded below.
- const defaults={strokes:3,gap_ms:500,travel_ms:1200,pulse_a_us:1250,pulse_b_us:1750,park_us:1500};
- for(const [k,v] of Object.entries(defaults))document.getElementById(k).value=v;
+ const values={interval_min:s.interval_min,strokes:s.strokes_target,gap_ms:s.gap_ms,travel_ms:s.travel_ms,pulse_a_us:s.pulse_a_us,pulse_b_us:s.pulse_b_us,park_us:s.park_us};
+ for(const [k,v] of Object.entries(values))document.getElementById(k).value=v;
 }
 async function saveConfig(e){
  e.preventDefault();const data=new URLSearchParams(new FormData(document.getElementById("cfg")));
