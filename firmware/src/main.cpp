@@ -145,19 +145,22 @@ void commandServo(uint16_t pulseUs) {
 }
 
 bool startCycle(const String &source) {
-  if (stage != Stage::IDLE || !servoAttached && wiper.attached() == false) {
-    // Servo.attach is performed lazily by commandServo; only reject an active cycle.
-    if (stage != Stage::IDLE) return false;
+  if (stage != Stage::IDLE) return false;
+  if (!servoAttached) {
+    wiper.setPeriodHertz(50);
+    servoAttached = wiper.attach(SERVO_PIN, 500, 2500);
   }
+  if (!servoAttached) return false;
+
   cycleSource = source;
   strokesDone = 0;
-  commandServo(cfg.pulseAUs);  // Uncounted move to the first edge.
+  wiper.writeMicroseconds(cfg.pulseAUs);  // Uncounted move to the first edge.
   stage = Stage::POSITION;
   stageDueMs = millis() + cfg.travelMs;
   appendLog(source == "MANUAL" ? "MANUAL_REQUEST" : "CYCLE_START",
             -1, cfg.pulseAUs, source);
   appendLog("POSITION_START", -1, cfg.pulseAUs, source);
-  return servoAttached;
+  return true;
 }
 
 void finishCycle() {
@@ -230,7 +233,12 @@ String jsonStatus() {
   json += "\"strokes_done\":" + String(strokesDone) + ",";
   json += "\"strokes_target\":" + String(cfg.strokes) + ",";
   json += "\"interval_min\":" + String(cfg.intervalMin) + ",";
-  json += "\"next_due_epoch\":" + String(static_cast<unsigned long long>(nextDueEpoch));
+  json += "\"travel_ms\":" + String(cfg.travelMs) + ",";
+  json += "\"gap_ms\":" + String(cfg.gapMs) + ",";
+  json += "\"pulse_a_us\":" + String(cfg.pulseAUs) + ",";
+  json += "\"pulse_b_us\":" + String(cfg.pulseBUs) + ",";
+  json += "\"park_us\":" + String(cfg.parkUs) + ",";
+  json += "\"next_due_epoch\":" + String(static_cast<unsigned long>(nextDueEpoch));
   json += "}";
   return json;
 }
