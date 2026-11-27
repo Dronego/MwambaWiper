@@ -13,7 +13,7 @@ BOM de prototype. Les références sans quantité ou sans spécification finale 
 | 1 | Contrôleur | Carte ESP32 (ESP32-S3 envisagé) | Référence à choisir ; GPIO PWM/I²C à configurer |
 | 1 | Horloge | RTC DS3231 (firmware par défaut) ou PCF8523 | Choisir le module exact, batterie de sauvegarde et niveau logique I²C |
 | 1 | Stockage journal | LittleFS dans la mémoire flash ESP32 | Pas de carte SD pour le premier prototype |
-| 1 | Batterie | Pack rechargeable protégé, capacité dimensionnée sur l’autonomie cible | Chimie, tension et capacité à définir après mesure du courant et du temps d’usage Wi‑Fi |
+| 1 | Batterie | Pack 3S, 3 000 mAh ou 5 000 mAh | 11,1 V nominal ; énergie nominale 33,3 Wh ou 55,5 Wh. Vérifier encombrement dans le tube, courant de décharge admissible, protection/équilibrage et seuil de coupure |
 | 1 | Conversion servo | Alimentation régulée dans la plage confirmée du servo, avec marge sur le courant mesuré sous charge | Valeurs constructeur du modèle 15 kg à confirmer pour l’exemplaire reçu ; ne pas alimenter depuis la carte ESP32 |
 | 1 | Conversion logique | Régulateur adapté à la carte ESP32 / RTC | Dimensionner selon la carte retenue et les pics radio |
 | 1 | Protection | Fusible ou protection électronique sur la branche servo | Valeur à choisir après mesure du courant de blocage/pointe et de la capacité du convertisseur |
@@ -29,7 +29,7 @@ BOM de prototype. Les références sans quantité ou sans spécification finale 
 - Confirmer le modèle servo et sa plage de tension : la page ROVMAKER décrit une famille de servos, le modèle probable est le 15 kg·cm (213 g), mais sa référence et sa fiche électrique doivent être confirmées.
 - Confirmer la charge électrique de chaque broche du Cobalt, la terminaison mâle/femelle, le diamètre du câble et l’outil compatible.
 - Vérifier que le bouchon offre une surface plane et lisse autour du joint torique du bulkhead.
-- Calculer l’autonomie à partir du courant réel au repos, pendant le Wi‑Fi et pendant chaque cycle de brossage.
+- Calculer l’autonomie à partir du courant réel mesuré à l’entrée batterie au repos, avec Wi‑Fi actif, et pendant chaque cycle de brossage ; la différence 3 000/5 000 mAh ne suffit pas à prédire la durée sans cette mesure.
 - Vérifier la compatibilité chimique de la lèvre avec le PMMA/verre/diffuseur et son absence de rayures après essais.
 - Mesurer le courant de pointe et le courant de blocage avant de choisir convertisseur, section de câble et fusible.
 
@@ -39,3 +39,5 @@ BOM de prototype. Les références sans quantité ou sans spécification finale 
 - [Données ROVMAKER du servo 15 kg : PWM 50 Hz, 12–28 V, 0,2–0,6 A](https://forum.rovmaker.org/t/topic/2017)
 - [Bulkhead Cobalt Blue Trail Engineering](https://www.bluetrailengineering.com/product-page/cobalt-series-bulkhead-connector)
 - [Kit de terminaison Cobalt Blue Trail Engineering](https://www.bluetrailengineering.com/product-page/cable-termination-kit)
+- [ROVMAKER — données servo 15 kg (forum constructeur)](https://forum.rovmaker.org/t/topic/2017)
+- [Exemple de fiche de pack LiPo 3S : tension nominale et tension de charge](https://tracerpower.com/wp-content/uploads/2022/11/BP2545-Data-Sheet.pdf)
